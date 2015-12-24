@@ -32,6 +32,7 @@ class DocumentIsReadOnly(Exception):
 
 
 class Document(dict):
+    __slots__ = ('__dict__', )
 
     def __init__(self, name, *args, **kwargs):
         super(Document, self).__init__(*args, **kwargs)
