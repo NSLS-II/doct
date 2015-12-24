@@ -28,6 +28,8 @@ def test_doc_plain():
     src_str, dd, doc_test = _syn_data_helper()
     assert_equal('testing', doc_test._name)
 
+    assert len(src_str) == len(doc_test)
+
     assert_equal(set(doc_test.keys()),
                  set(dd.keys()))
     for k in doc_test:
