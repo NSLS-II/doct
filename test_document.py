@@ -6,16 +6,9 @@ import uuid
 
 from nose.tools import (assert_equal, assert_in, raises)
 from nose import SkipTest
-from ..doc import (Document, pretty_print_time,
-                   DocumentIsReadOnly, ref_doc_to_uid)
+from document import (Document, pretty_print_time,
+                      DocumentIsReadOnly, ref_doc_to_uid)
 
-import logging
-loglevel = logging.DEBUG
-logger = logging.getLogger(__name__)
-logger.setLevel(loglevel)
-handler = logging.StreamHandler()
-handler.setLevel(loglevel)
-logger.addHandler(handler)
 
 # some useful globals
 run_start_uid = None
