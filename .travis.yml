@@ -11,4 +11,4 @@ install:
   - pip install six pytest pytest-cov
 
 script:
-  - py.test --cov=document --cov-report term-missing
+  - py.test --cov=doct --cov-report term-missing
