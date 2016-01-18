@@ -1,14 +1,17 @@
 language: python
 
-python:
-  - 2.7
-  - 3.4
-  - 3.5
-  - "nightly"
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.4
+    - python: 3.5
+    - python: "nightly"
+    - python: 3.5
+      env: EXTRAINSTALL="prettytable humanize jinja2"
 
 install:
   - python setup.py install
-  - pip install six pytest pytest-cov
+  - pip install six pytest pytest-cov $EXTRAINSTALL
 
 script:
   - py.test --cov=doct --cov-report term-missing
