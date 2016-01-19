@@ -24,6 +24,7 @@ git:
   depth: 9999999
 
 before_install:
+  - export TRAVIS_PYTHON_VERSION=$python
   # clone some conda install/build/upload helper scripts and make them executable
   - git clone https://gist.github.com/613e015ad558b9149d33.git ~/scripts
   - chmod +x ~/scripts/*.sh
