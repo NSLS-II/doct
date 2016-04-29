@@ -37,13 +37,16 @@ class Document(dict):
     def __init__(self, name, *args, **kwargs):
         super(Document, self).__init__(*args, **kwargs)
         super(Document, self).__setitem__('_name', name)
-        super(Document, self).__setattr__('__dict__',  self)
+        super(Document, self).__setattr__('__dict__', self)
 
     def __setattr__(self, key, value):
         raise DocumentIsReadOnly()
 
     def __setitem__(self, key, value):
-        raise DocumentIsReadOnly()
+        if isinstance(self.__dict__, Document):
+            raise DocumentIsReadOnly('{}, {}'.format(key, value))
+        else:
+            return dict.__setitem__(self.__dict__, key, value)
 
     def __delattr__(self, key):
         raise DocumentIsReadOnly()
@@ -75,6 +78,15 @@ class Document(dict):
 
     def __len__(self):
         return len(list(self.keys()))
+
+    def __getstate__(self):
+        return self._name, dict(self)
+
+    def __setstate__(self, state):
+        name, dd = state
+        super(Document, self).__setattr__('__dict__', self)
+        super(Document, self).__setitem__('_name', name)
+        dict.update(self, dd)
 
     def _repr_html_(self):
         import jinja2
