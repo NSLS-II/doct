@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='doct',
-      version='1.0.0',
+      version='1.0.2',
       author='Brookhaven National Laboratory',
       py_modules=['doct'],
       description='A read-only dottable dictionary',
