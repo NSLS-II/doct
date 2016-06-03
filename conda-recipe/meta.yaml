@@ -18,9 +18,10 @@ requirements:
     - python
 
   run:
+    - humanize
+    - prettytable
     - python
     - six
-    - humanize
 
 test:
   imports:

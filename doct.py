@@ -35,6 +35,7 @@ import time
 import datetime
 
 import humanize
+from prettytable import PrettyTable
 
 
 _HTML_TEMPLATE = """
@@ -175,7 +176,6 @@ def _format_dict(value, name_width, value_width, name, tabs=0):
 
 
 def _format_data_keys_dict(data_keys_dict):
-    from prettytable import PrettyTable
 
     fields = reduce(set.union,
                     (set(v) for v in six.itervalues(data_keys_dict)))

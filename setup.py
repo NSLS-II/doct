@@ -8,5 +8,5 @@ setup(
     py_modules=['doct'],
     description='A read-only dottable dictionary',
     url='http://github.com/NSLS-II/doct',
-    install_requires=['six', 'humanize']
+    install_requires=['six', 'humanize', 'prettytable']
 )
