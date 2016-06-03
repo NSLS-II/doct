@@ -130,11 +130,7 @@ class Document(dict):
         return template.render(document=self)
 
     def __str__(self):
-        try:
-            return vstr(self)
-        except ImportError:
-            # import error will be raised if prettytable is not available
-            return super(Document, self).__str__()
+        return vstr(self)
 
     def to_name_dict_pair(self):
         """Convert to (name, dict) pair
