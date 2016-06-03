@@ -1,7 +1,12 @@
-from __future__ import (absolute_import, division, print_function)
+from __future__ import absolute_import, division, print_function
 import six
 import collections
 from functools import reduce
+import time
+import datetime
+
+import humanize
+
 
 _HTML_TEMPLATE = """
 <table>
@@ -126,9 +131,6 @@ class Document(dict):
 
 
 def pretty_print_time(timestamp):
-    import humanize
-    import time
-    import datetime
     dt = datetime.datetime.fromtimestamp(timestamp).isoformat()
     ago = humanize.naturaltime(time.time() - timestamp)
     return '{ago} ({date})'.format(ago=ago, date=dt)
