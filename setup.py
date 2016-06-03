@@ -6,5 +6,5 @@ setup(name='doct',
       py_modules=['doct'],
       description='A read-only dottable dictionary',
       url='http://github.com/NSLS-II/doct',
-      requires=['six']
+      requires=['six', 'humanize']
       )

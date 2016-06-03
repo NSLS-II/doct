@@ -20,6 +20,7 @@ requirements:
   run:
     - python
     - six
+    - humanize
 
 test:
   imports:
