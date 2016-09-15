@@ -92,7 +92,7 @@ class Document(dict):
     def update(self, *args, **kwargs):
         raise DocumentIsReadOnly()
 
-    def pop(self, key):
+    def pop(self, key, d=None):
         raise DocumentIsReadOnly()
 
     def __iter__(self):
