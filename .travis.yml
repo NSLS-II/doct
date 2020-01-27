@@ -14,10 +14,11 @@ env:
   matrix:
     - python: "nightly"
     - python: 2.7
-    - python: 3.4
-    - python: 3.5
-    - python: 3.5
-      env: EXTRAINSTALL="prettytable humanize jinja2"
+    - python: 3.6
+    - python: 3.7
+    - python: 3.8
+    - python: 3.8
+      env: EXTRAINSTALL="jinja2"
 
 git:
   # hack around git fetch --unshallow failing and nuking the whole CI
@@ -34,7 +35,7 @@ before_install:
 
 install:
   - python setup.py install
-  - pip install six pytest pytest-cov $EXTRAINSTALL nose
+  - pip install pytest pytest-cov $EXTRAINSTALL
 
 script:
   - py.test --cov=doct --cov-report term-missing
