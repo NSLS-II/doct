@@ -149,6 +149,20 @@ def test_pprint_time():
     expt = target.format(off=offset_seconds, dt=dt)
     assert_equal(res, expt)
 
-if __name__ == '__main__':
+
+def test_forgiving_pprint_time():
+    ts = "20200124-185311"
+    # this should not raise
+    ts == pretty_print_time(ts)
+
+
+def test_forgiving_pprint_time2():
+    ts = {'time': "20200124-185311"}
+    # this should not raise
+    ts == pretty_print_time(ts)
+
+
+if __name__ == "__main__":
     import nose
-    nose.runmodule(argv=['-s', '--with-doctest'], exit=False)
+
+    nose.runmodule(argv=["-s", "--with-doctest"], exit=False)

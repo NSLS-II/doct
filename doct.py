@@ -158,7 +158,11 @@ class Document(dict):
 
 def pretty_print_time(timestamp):
     # timestamp needs to be a float or fromtimestamp() will barf
-    timestamp = float(timestamp)
+    try:
+        timestamp = float(timestamp)
+    except (TypeError, ValueError):
+        # not a float, assume it is already as pretty as it will get
+        return timestamp
     dt = datetime.datetime.fromtimestamp(timestamp).isoformat()
     ago = humanize.naturaltime(time.time() - timestamp)
     return '{ago} ({date})'.format(ago=ago, date=dt)
