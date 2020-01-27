@@ -155,6 +155,7 @@ class Document(dict):
             Data payload of Document
         """
         ret = dict(self)
+        ret.pop('_name', None)
         name = self._name
         return name, ret
 
