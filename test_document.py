@@ -13,15 +13,16 @@ descriptor_uid = None
 run_stop_uid = None
 
 
-def _syn_data_helper():
-    src_str = 'ABCDEFGHI'
+@pytest.fixture
+def syn_data():
+    src_str = "ABCDEFGHI"
     dd = {k: ord(k) for k in src_str}
-    doc_test = Document('testing', dd)
+    doc_test = Document("testing", dd)
     return src_str, dd, doc_test
 
 
-def test_doc_plain():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_plain(syn_data):
+    src_str, dd, doc_test = syn_data
     "testing" == doc_test._name
 
     assert len(src_str) == len(doc_test)
@@ -39,56 +40,56 @@ def test_doc_plain():
     assert set(dd.values()) == set(doc_test.values())
 
 
-def test_doc_descructive_pop():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_pop(syn_data):
+    src_str, dd, doc_test = syn_data
     k = next(doc_test.keys())
     with pytest.raises(DocumentIsReadOnly):
         doc_test.pop(k)
 
 
-def test_doc_descructive_del():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_del(syn_data):
+    src_str, dd, doc_test = syn_data
     k = next(doc_test.keys())
     with pytest.raises(DocumentIsReadOnly):
         del doc_test[k]
 
 
-def test_doc_descructive_delattr():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_delattr(syn_data):
+    src_str, dd, doc_test = syn_data
     k = next(doc_test.keys())
     with pytest.raises(DocumentIsReadOnly):
         delattr(doc_test, k)
 
 
-def test_doc_descructive_setitem():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_setitem(syn_data):
+    src_str, dd, doc_test = syn_data
     k = next(doc_test.keys())
     with pytest.raises(DocumentIsReadOnly):
         doc_test[k] = "aardvark"
 
 
-def test_doc_descructive_setattr():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_setattr(syn_data):
+    src_str, dd, doc_test = syn_data
     k = next(doc_test.keys())
     with pytest.raises(DocumentIsReadOnly):
         setattr(doc_test, k, "aardvark")
 
 
-def test_doc_descructive_update():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_doc_descructive_update(syn_data):
+    src_str, dd, doc_test = syn_data
     with pytest.raises(DocumentIsReadOnly):
         doc_test.update(dd)
 
 
-def test_getattr_fail():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_getattr_fail(syn_data):
+    src_str, dd, doc_test = syn_data
     with pytest.raises(AttributeError):
         getattr(doc_test, "aardavark")
 
 
-def test_html_smoke():
+def test_html_smoke(syn_data):
     pytest.importorskip('jinja2')
-    src_str, dd, doc_test = _syn_data_helper()
+    src_str, dd, doc_test = syn_data
 
     doc_test._repr_html_()
 
@@ -110,8 +111,8 @@ def test_str_smoke():
     str(b)
 
 
-def test_round_trip():
-    src_str, dd, doc_test = _syn_data_helper()
+def test_round_trip(syn_data):
+    src_str, dd, doc_test = syn_data
     name, doc_dict = doc_test.to_name_dict_pair()
     assert name == doc_test["_name"]
     assert name == doc_test._name
