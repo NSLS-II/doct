@@ -23,4 +23,4 @@ install:
   - pip install pytest pytest-cov $EXTRAINSTALL
 
 script:
-  - py.test --cov=doct --cov-report term-missing
+  - pytest --cov=doct --cov-report term-missing
