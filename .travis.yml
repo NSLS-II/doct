@@ -1,16 +1,6 @@
 language: python
 
 env:
-  global:
-    - ANACONDA_USER=lightsource2
-    # if ANACONDA_CHANNEL is not defined then the conda package will be
-    # uploaded to the main channel.
-    - ANACONDA_CHANNEL="development"
-    # Set this flag to your branch name if you push something to the upstream
-    # repo and you want it to build automatically and be pushed to lightsource2.
-    # I would also suggest changing the ANACONDA_CHANNEL name
-    - UPLOAD_ONLY_IF_BRANCH_IS="master"
-    - secure: "n9qJDzpeurzF3njcIVrWXIMZCtyZS33DdRNU+afHln1zIkRxtD+TyfQ0hpAfYU9bNBiysticOd4wv7F7Si0aF58BzkXzu4blCma595Whi4Y0/neCHj0rWj969VVT5U4RBHF+r2Prxy5EbKmxAs3Q2sxPi4MW8nyuR7kxvmxfrAvVt8FB8xsAICNwbYYZseo+c/jeFtH9knoXFwJZRh1VvvwZnjTnhA0wvtifHI2yadOnUiKCPpG5ce4BdghC1YmG45BgY0tMvOP87ESHS+d2U4dQ7RRluzhNoOv9I/lt5DdlrMti9dWxMAvCizVS813hm02fLgC6A3hQy5qvmMQD6GcJP3+ZsLxwednD6E1xoPuRoyzHquoTfq0gVCwrcwaiPcNnrA2fP/Km9BNOpwiMrUXCcgk36v9tRZmVqF2Zx+0XZM/3enrzB1YH1cee7nC43Ce6mc64gTjo5ZOjRsvrfOUsbN4FUgyEaxbgfsEuoTRq+yMHCrQYOMNaDVBJ2P2ARonBLmMER1Nuh4hPhQXQHDHABoh4n46qozO3azAb23gvnvH8D7sqRGMzQMim4xHMVugU86ducKIi9VhojCNnpeEPZgGWaFQU4qIQQJAP6dnzyY4x77gs+bte7YsoJqTzAHmxZF/rJDiMerEqtDTUMRufGo2cN+klXZO61HJXYIw="
   matrix:
     - python: "nightly"
     - python: 2.7
@@ -26,11 +16,6 @@ git:
 
 before_install:
   - export TRAVIS_PYTHON_VERSION=$python
-  # clone some conda install/build/upload helper scripts and make them executable
-  # - git clone https://gist.github.com/613e015ad558b9149d33.git ~/scripts
-  - git clone https://github.com/NSLS-II/nsls2-ci ~/scripts
-  - chmod +x ~/scripts/*.sh
-  # install miniconda/anaconda-client/conda-build
   - . ~/scripts/install-miniconda.sh
 
 install:
@@ -39,9 +24,3 @@ install:
 
 script:
   - py.test --cov=doct --cov-report term-missing
-  # build the conda package on travis
-  - . ~/scripts/conda-build.sh
-
-after_success:
-  # upload the conda package to the $ANACONDA_CHANNEL in $ANACONDA_USER
-  - . ~/scripts/anaconda-upload.sh
