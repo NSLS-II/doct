@@ -152,7 +152,7 @@ class Document(dict):
             Data payload of Document
         """
         ret = dict(self)
-        name = ret.pop('_name')
+        name = self._name
         return name, ret
 
 
