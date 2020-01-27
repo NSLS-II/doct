@@ -27,12 +27,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-from __future__ import absolute_import, division, print_function
-import six
-try:
-    from collections.abc import Mapping
-except ImportError:
-    from collections import Mapping
+from collections.abc import Mapping
 from functools import reduce
 import time
 import datetime
@@ -100,19 +95,19 @@ class Document(dict):
 
     def __iter__(self):
         return (k for k in super(Document, self).__iter__()
-                if not (isinstance(k, six.string_types) and k.startswith('_')))
+                if not (isinstance(k, str) and k.startswith('_')))
 
     def items(self):
         return ((k, v) for k, v in super(Document, self).items()
-                if not (isinstance(k, six.string_types) and k.startswith('_')))
+                if not (isinstance(k, str) and k.startswith('_')))
 
     def values(self):
         return (v for k, v in super(Document, self).items()
-                if not (isinstance(k, six.string_types) and k.startswith('_')))
+                if not (isinstance(k, str) and k.startswith('_')))
 
     def keys(self):
         return (k for k in super(Document, self).keys()
-                if not (isinstance(k, six.string_types) and k.startswith('_')))
+                if not (isinstance(k, str) and k.startswith('_')))
 
     def __len__(self):
         return len(list(self.keys()))
@@ -174,7 +169,7 @@ def pretty_print_time(timestamp):
 
 def _format_dict(value, name_width, value_width, name, tabs=0):
     ret = ''
-    for k, v in six.iteritems(value):
+    for k, v in value.items():
         if isinstance(v, Mapping):
             ret += _format_dict(v, name_width, value_width, k, tabs=tabs+1)
         else:
@@ -186,7 +181,7 @@ def _format_dict(value, name_width, value_width, name, tabs=0):
 def _format_data_keys_dict(data_keys_dict):
 
     fields = reduce(set.union,
-                    (set(v) for v in six.itervalues(data_keys_dict)))
+                    (set(v) for v in data_keys_dict.values()))
     fields = sorted(list(fields))
     table = PrettyTable(["data keys"] + list(fields))
     table.align["data keys"] = 'l'
