@@ -29,7 +29,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 from __future__ import absolute_import, division, print_function
 import six
-import collections
+try:
+    from collections.abc import Mapping
+except ImportError:
+    from collections import Mapping
 from functools import reduce
 import time
 import datetime
@@ -171,7 +174,7 @@ def pretty_print_time(timestamp):
 def _format_dict(value, name_width, value_width, name, tabs=0):
     ret = ''
     for k, v in six.iteritems(value):
-        if isinstance(v, collections.Mapping):
+        if isinstance(v, Mapping):
             ret += _format_dict(v, name_width, value_width, k, tabs=tabs+1)
         else:
             ret += ("\n%s%-{}s: %-{}s".format(
@@ -227,7 +230,7 @@ def vstr(doc, indent=0):
                 documents.append((name, val))
         elif name == 'data_keys':
             ret += "\n%s" % str(_format_data_keys_dict(value))
-        elif isinstance(value, collections.Mapping):
+        elif isinstance(value, Mapping):
             if '_name' in value:
                 documents.append((name, value))
             else:
