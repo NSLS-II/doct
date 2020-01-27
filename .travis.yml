@@ -10,14 +10,6 @@ env:
     - python: 3.8
       env: EXTRAINSTALL="jinja2"
 
-git:
-  # hack around git fetch --unshallow failing and nuking the whole CI
-  depth: 9999999
-
-before_install:
-  - export TRAVIS_PYTHON_VERSION=$python
-  - . ~/scripts/install-miniconda.sh
-
 install:
   - python setup.py install
   - pip install pytest pytest-cov $EXTRAINSTALL
